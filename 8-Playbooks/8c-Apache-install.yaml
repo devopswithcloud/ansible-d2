@@ -1,0 +1,18 @@
+# Lets install apache webserver using playbook 
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install Apache HTTPD
+    yum:
+      name: httpd
+      state: present
+  - name: Start the service 
+    service: # service httpd start # service httpd enable
+      name: httpd 
+      state: started
+      enabled: true
+  - name: Copy the index file
+    copy: 
+      src: index.html
+      dest: /var/www/html/index.html

@@ -9,6 +9,9 @@ gcloud compute instances create ansible-centos-host --zone us-west4-b --machine-
 # Create a Ansible Other Centos node
 gcloud compute instances create ansible-centos-host-other --zone us-west4-b --machine-type e2-medium --create-disk=auto-delete=yes,boot=yes,device-name=ansiblecontroller,image=projects/centos-cloud/global/images/centos-7-v20240110,mode=rw,size=20 --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default
 
+# Create a Ubuntu node
+gcloud compute instances create ansiblehost-ubuntu --zone=us-west4-b --machine-type=e2-medium --create-disk=auto-delete=yes,boot=yes,device-name=ansiblehost-ubuntu,image=projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20240209,mode=rw,size=10 --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default
+
 # Create a Ansible Ubuntu node
 ```
 
@@ -32,10 +35,7 @@ service sshd restart
 yum install ansible -y 
 ```
 
-## Configure Ansible
-```bash
 
-```
 ## Generate ssh key
 ```bash
 # Generate the SSH key in the Ansible Server
@@ -53,4 +53,5 @@ ssh-copy-id ansible@<PRIVAT_IP>
 # The default host/inventory file is avaialble at this location
 
 vi /etc/ansible/hosts
+ansible -m ping all
 ```

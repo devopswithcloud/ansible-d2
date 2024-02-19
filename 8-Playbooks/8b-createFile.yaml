@@ -1,0 +1,11 @@
+# File Module
+---
+- hosts: all
+  tasks:
+  - name: Create a file 
+    file: # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+      # location where i want the file , owner 
+      owner: ansible
+      path: /tmp/filetest.txt
+      mode: 0777
+      state: touch

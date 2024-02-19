@@ -1,0 +1,21 @@
+---
+# vi 1.yaml
+- hosts: all # serverip or groupName
+  become: true
+  tasks:
+  - name: Ping Servers
+    ping: 
+
+# Adhoc 
+# ansible -i inv all -m ping
+
+# Playbook Execute:
+# ansible-playbook -i inv 1.yaml 
+
+
+# Syntax Check
+#ansible-playbook -i inv 1.yaml --syntax-check
+
+
+# Dry-run
+# ansible-playbook -i inv 1.yaml --check
