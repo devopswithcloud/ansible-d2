@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  vars:
+    courseName: Devops Mastery program
+    batchNumber: 2
+  tasks:
+  - name: Install Apache HTTPD
+    yum:
+      name: httpd
+      state: present
+  - name: Copy the index file
+    template: # Dynamic data reflect  
+      src: index.html
+      dest: /var/www/html/index.html
+    notify: 
+    - Restart the service
+# Handlers are the special task, which will run at the end of th play when notified by another task
+  handlers: 
+  - name: Restart the service
+    service:
+      name: httpd
+      enabled: true
+      state: restarted

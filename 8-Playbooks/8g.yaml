@@ -1,0 +1,23 @@
+# I want to install few packages
+# git, webserver, wget, unzip , tree
+
+---
+- hosts: all
+  become: true
+  tasks: 
+  - name: Install Git
+    yum:
+      name: git 
+      state: present
+  - name: Install Http webserver
+    yum: 
+      name: httpd 
+      state: present 
+  - name: Install unzip 
+    yum: 
+      name: unzip 
+      state: present
+  - name: Install tree
+    yum: 
+      name: tree 
+      state: present

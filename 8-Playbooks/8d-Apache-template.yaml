@@ -1,0 +1,52 @@
+# Lets install apache webserver using playbook 
+---
+- hosts: all
+  become: true
+  vars:
+    courseName: Devops Mastery program
+    batchNumber: 2
+  tasks:
+  - name: Install Apache HTTPD
+    yum:
+      name: httpd
+      state: present
+  - name: Start the service 
+    service: # service httpd start # service httpd enable
+      name: httpd 
+      state: started
+      enabled: true
+  - name: Copy the index file
+    copy: 
+      src: index.html
+      dest: /var/www/html/index.html
+
+# If we run the above playbook , the outpt will be "Welcome to {{courseName}} batch {{batchNumber}}"
+# Because, Copy module wont update the variables, instead of copy we should be using template. 
+
+---
+- hosts: all
+  become: true
+  vars:
+    courseName: Devops Mastery program
+    batchNumber: 2
+  tasks:
+  - name: Install Apache HTTPD
+    yum:
+      name: httpd
+      state: present
+  - name: Start the service 
+    service: # service httpd start # service httpd enable
+      name: httpd 
+      state: started
+      enabled: true
+  - name: Copy the index file
+    template: # Dynamic data reflect  
+      src: index.html
+      dest: /var/www/html/index.html
+
+  # is it possible to pass the values dynamically , other than vars section. 
+  # Yes, we can do that using arguments during the playbook  execution . 
+  # --extra-vars key=value
+  # -e key=value
+
+
