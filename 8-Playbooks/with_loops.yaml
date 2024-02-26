@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install Multiple Packages
+    yum: name="{{item}}" state=present
+    with_items:
+    - git
+    - httpd
+    - unzip
+    - tree
+    - wget 
+
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install mulitple packages 
+    yum: 
+      name: ['git', 'httpd', 'unzip', 'tree', 'wget']
+
+
+--- 
+- hosts: all
+  become: true 
+  tasks:
+  - name: Create Users
+    user:
+      name: "{{item}}"
+      create_home: yes
+    with_items:
+    - siva
+    - maha
+
+---
+- hosts: all 
+  become: true
+  tasks: 
+  - name: Create Users 
+    user:
+      name: "{{item.name}}"
+      create_home: "{{item.createhome}}"
+    with_items:
+    - {'name': 'krish', 'createhome': no}
+    - {'name': 'phani', 'createhome': yes}

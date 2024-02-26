@@ -1,0 +1,22 @@
+# if we are asked to install git, httpd,tree, unzip
+
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install Git
+    yum: 
+      name: git 
+      state: present 
+  - name: Install HTTP Server
+    yum:
+      name: httpd 
+      state: present
+  - name: Install tree
+    yum:  
+      name: tree
+      state: present 
+  - name: Install unzip
+    yum:  
+      name: unzip
+      state: present 

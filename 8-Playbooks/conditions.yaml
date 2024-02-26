@@ -1,0 +1,15 @@
+---
+- hosts: all # server
+  become: true 
+  tasks: 
+  - name: Install Git on Redhat Server 
+    yum: 
+      name: git 
+      state: present
+    when: ansible_os_family == "RedHat"
+  - name: Install apache2 on ubuntu 
+    apt: 
+      name: apache2
+      state: present
+      update_cache: true
+    when: ansible_os_family == "Debian"

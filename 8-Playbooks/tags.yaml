@@ -1,0 +1,23 @@
+---
+- hosts: all 
+  become: true
+  tasks:
+  - name: Install apache httpd 
+    tags: 
+    - install
+    yum: 
+      name: httpd
+      state: present
+  - name: Start the service
+    tags:
+    - start
+    service: 
+      name: httpd
+      state: started
+      enabled: true
+  - name: Copy The html file
+    tags: 
+    - copy
+    copy: 
+      dest: /var/www/html/index.html
+      src: index.html
