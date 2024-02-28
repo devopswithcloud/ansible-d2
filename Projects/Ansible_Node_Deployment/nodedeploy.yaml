@@ -1,0 +1,50 @@
+# Install Node , Npm, and deploy the application using playbook. 
+---
+- name: Install Node and NPM 
+  become: yes 
+  hosts: all
+  tasks:
+  - name: Update the Repo 
+    apt: 
+      update_cache: true
+      # This argument will be helping to update the repo after the time specified there 
+      cache_valid_time: 3600 
+  - name: Install NPM and NODEJS
+    ansible.builtin.apt: 
+      pkg:
+      - nodejs
+      - npm
+# new play
+- name: Deploy the Node js app
+  become: yes
+  hosts: all
+  tasks: 
+  - name: COPY ARTIFACTS TO NODE SERVER
+    copy: 
+      src: /home/ansible/nodeapp/node-ex.tar
+      dest: /home/ansible/node-ex.tar
+  - name: UNARCHIVE THE TAR FILE 
+    unarchive:
+      src: /home/ansible/node-ex.tar
+      dest: /home/ansible
+      remote_src: yes
+  - name: INSTALL THE DEPENDENCIES
+    npm: #npm module 
+      path: /home/ansible/node-src
+  - name: START THE APPLICATION 
+    command: node /home/ansible/node-src/server
+    async: 1000
+    poll: 0
+  - name: VERIFY APP IS RUNNING 
+    shell: ps aux | grep node
+    register: application_status
+  - debug: msg={{application_status.stdout_lines}}
+
+# Command 
+# Shell 
+
+
+
+      # start the applicaiton ====> automating 
+
+
